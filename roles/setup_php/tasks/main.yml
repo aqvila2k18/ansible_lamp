@@ -1,0 +1,6 @@
+---
+# tasks file for setup_php
+- name: Install PHP
+  apt: name="{{ item }}" update_cache=yes state=present
+  loop: [ 'php', 'php-mysql', 'libapache2-mod-php', 'php-curl', 'php-gd', 'php-mbstring', 'php-xml', 'php-xmlrpc', 'php-soap', 'php-intl', 'php-zip' ]
+  notify: Restart Apache

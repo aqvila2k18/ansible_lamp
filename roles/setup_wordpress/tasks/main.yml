@@ -1,0 +1,22 @@
+---
+# tasks file for setup_wordpress
+- name: Download and unpack latest WordPress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /var/www/mysite
+    remote_src: yes
+- name: Set ownership
+  file:
+    path: /var/www/mysite
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data
+- name: Set permissions for directories
+  shell: "/usr/bin/find /var/www/mysite/ -type d -exec chmod 750 {} \\;"
+- name: Set permissions for files
+  shell: "/usr/bin/find /var/www/mysite/ -type f -exec chmod 640 {} \\;"
+- name: Set up wp-config
+  template:
+    src: "templates/wp-config.php.j2"
+    dest: "/var/www/mysite/wp-config.php"
