@@ -1,0 +1,37 @@
+---
+# tasks file for setup_apache
+- name: Insatll apache2 web
+  apt:
+    name: apache2
+    update_cache: yes
+    state: present
+- name: Create document root
+  file:
+    path: "/var/www/{{ http_host }}"
+    state: directory
+    owner: "www-data"
+    mode: '0755'
+
+- name: Copy index test page
+  template:
+    src: "templates/index.html.j2"
+    dest: "/var/www/{{ http_host }}/index.html"
+
+- name: Set up Apache virtualhost
+  template:
+    src: "templates/apache.conf.j2"
+    dest: "/etc/apache2/sites-available/{{ http_conf }}"
+
+- name: Enable new site
+  shell: /usr/sbin/a2ensite {{ http_conf }}
+  notify: Restart Apache
+
+- name: Disable default Apache site
+  shell: /usr/sbin/a2dissite 000-default.conf
+  notify: Reload Apache
+
+- name: "UFW - Allow HTTP"
+  ufw:
+    rule: allow
+    port: "80"
+    proto: tcp
