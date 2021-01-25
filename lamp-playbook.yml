@@ -1,1 +1,17 @@
 ---
+- name: Install Apache2
+  hosts: http_server
+  become: yes
+
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+
+    - name: Install Apache2 PHP
+      apt:
+        name: [ 'apache2', 'php', 'libapache2-mod-php', 'php-mysql', 'python3-pymysql' ]
+        state: present
+
+    - name: Start and enabled Apache2
+      
