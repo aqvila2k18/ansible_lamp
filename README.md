@@ -6,6 +6,7 @@ linux-1 ansible_host=linux-1
 linux-2 ansible_host=linux-2
 
 Файлы переменных:
+
 group_vars/db-server
   sudo пользователь:                       ansible_user:  ubuntu
   путь к ssh ключу:                        ansible_ssh_private_key_file:  /home/ubuntu/.ssh/ansible.pem
