@@ -6,20 +6,25 @@
     dest: /var/www/
     remote_src: yes
     creates: /var/www/wordpress
+
 - name: Copy wordpress
-  shell: "cp -r /var/www/wordpress/. /var/www/mysite"
+  shell: "cp -r /var/www/wordpress/. /var/www/{{ http_host }}"
+
 - name: Set ownership
   file:
-    path: /var/www/mysite
+    path: /var/www/{{ http_host }}
     state: directory
     recurse: yes
     owner: www-data
     group: www-data
+
 - name: Set permissions for directories
-  shell: "/usr/bin/find /var/www/mysite/ -type d -exec chmod 750 {} \\;"
+  shell: "/usr/bin/find /var/www/{{ http_host }}/ -type d -exec chmod 750 {} \\;"
+
 - name: Set permissions for files
-  shell: "/usr/bin/find /var/www/mysite/ -type f -exec chmod 640 {} \\;"
-- name: Set up wp-config
+  shell: "/usr/bin/find /var/www/{{ http_host }}/ -type f -exec chmod 640 {} \\;"
+  
+- name: Copy wordpress config
   template:
     src: "templates/wp-config.php.j2"
-    dest: "/var/www/mysite/wp-config.php"
+    dest: "/var/www/{{ http_host }}/wp-config.php"

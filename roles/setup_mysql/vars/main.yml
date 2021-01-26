@@ -1,4 +1,2 @@
 ---
 # vars file for setup_mysql
-mysql_root_password: "mysql_root_password"
-mysql_password: "password"

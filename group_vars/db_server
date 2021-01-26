@@ -1,2 +1,5 @@
 ansible_user :                 ubuntu
 ansible_ssh_private_key_file : /home/ubuntu/.ssh/ansible.pem
+mysql_root_password: "root_password"
+mysql_password: "password"
+http_host: 172.31.47.188

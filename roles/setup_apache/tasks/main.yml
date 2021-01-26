@@ -5,17 +5,13 @@
     name: apache2
     update_cache: yes
     state: present
+    
 - name: Create document root
   file:
     path: "/var/www/{{ http_host }}"
     state: directory
     owner: "www-data"
     mode: '0755'
-
-- name: Copy index test page
-  template:
-    src: "templates/index.html.j2"
-    dest: "/var/www/{{ http_host }}/index.html"
 
 - name: Copy Apache config
   template:
