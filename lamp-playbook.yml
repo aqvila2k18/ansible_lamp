@@ -1,9 +1,9 @@
 ---
-#- name: Install MySQL
-#  hosts: db_server
-#  become: yes
-#  roles:
-#    - setup_mysql
+- name: Install MySQL
+  hosts: db_server
+  become: yes
+  roles:
+    - setup_mysql
 
 - name: Install Apache2
   hosts: http_server

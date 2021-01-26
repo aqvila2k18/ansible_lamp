@@ -3,8 +3,11 @@
 - name: Download and unpack latest WordPress
   unarchive:
     src: https://wordpress.org/latest.tar.gz
-    dest: /var/www/mysite
+    dest: /var/www/
     remote_src: yes
+    creates: /var/www/wordpress
+- name: Copy wordpress
+  shell: "cp -r /var/www/wordpress/. /var/www/mysite"
 - name: Set ownership
   file:
     path: /var/www/mysite

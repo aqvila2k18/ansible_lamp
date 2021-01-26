@@ -28,8 +28,19 @@
 - name: Create user
   mysql_user:
     name: "wordpress"
+    host: 172.31.47.188
     password: "{{ mysql_password }}"
     priv: "wordpress.*:ALL"
     state: present
     login_user: root
     login_password: "{{ mysql_root_password }}"
+- name: Change mysqld.conf
+  replace:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: "^bind-address"
+    replace: "#bind-address"
+- name: Restart MySQL service
+  service:
+    name: mysql
+    state: restarted  
+    enabled: yes
